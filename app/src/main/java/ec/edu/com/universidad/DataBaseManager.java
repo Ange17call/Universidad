@@ -1,6 +1,5 @@
 package ec.edu.com.universidad;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -10,14 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
  */
 
 public class DataBaseManager {
-/*
-    public static final String TABLE_NAME = "Alumno";
 
-    public static final String CN_ID="idAlumno";
-    public static final String CN_NAME="nombreAlumno";
-    public static final String CN_CI="ciAlumno";*/
-
-    //sentencia sql para crear la tabla
     public static final String sqlCreateTabla = "CREATE TABLE Alumno (idAlumno INTEGER PRIMARY KEY AUTOINCREMENT, nombreAlumno TEXT, ciAlumno TEXT)";
 
     //public static final String CREATE_TABLE="CREATE TABLE "+ TABLE_NAME+ "("+CN_ID+" INTEGER PRIMARY KEY AUTOINCREMENT"+","+ CN_NAME+ " TEXT NOT NULL,"+CN_CI+" INTEGER)";
