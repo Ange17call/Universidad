@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    private static final String DB_NAME= "universidad";//Nombre de la base de datos
+    private static final String DB_NAME = "universidad.sqlite";//Nombre de la base de datos
     private static final int DB_SCHEME_VERSION = 1;
 
     public DBHelper(Context context) {
@@ -20,7 +20,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        db.execSQL(DataBaseManager.sqlCreateTabla);
+        db.execSQL(DataBaseManager.CREATE_TABLEALUMNO);
 
 
 

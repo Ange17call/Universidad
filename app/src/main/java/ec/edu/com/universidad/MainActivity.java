@@ -1,28 +1,18 @@
 package ec.edu.com.universidad;
 
 import android.database.Cursor;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+import java.util.ArrayList;
+
+public class MainActivity extends AppCompatActivity {
 
     private DataBaseManager manager;
     private Cursor cursor;
-    private SimpleCursorAdapter adapter;
-    private TextView textView;
-    private Button listar;
-    private Button insertar;
-    EditText nombre;
-    EditText ci;
-    String nom;
-    String cedi;
-
-
+    private ListView lista;
 
 
     @Override
@@ -30,45 +20,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        textView = (TextView)findViewById(R.id.resultado);
         manager = new DataBaseManager(this);
-        listar = (Button)findViewById(R.id.button);
-        insertar =(Button)findViewById(R.id.button2);
-        nombre = (EditText)findViewById(R.id.nombre);
-        ci=(EditText)findViewById(R.id.ci) ;
+        lista = (ListView) findViewById(R.id.lv01);
 
-        insertar.setOnClickListener(this);
-        listar.setOnClickListener(this);
+        cursor = manager.cargarCursorAlumnos();
+        ArrayList lista1 = new ArrayList();
 
 
+        if (cursor.moveToFirst()) {
 
-
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.button:
-                nom= String.valueOf(nombre.getText());
-                cedi=String.valueOf(ci.getText());
-                manager.insertar(nom,cedi);
-                break;
-            case R.id.button2:
-                cursor = manager.cargarCursorAlumnos();
-                if (cursor.moveToFirst()) {
-                    textView.setText(""); // Vacio el textview
-                    //Recorremos el cursor hasta que no haya más registros
-                    textView.append("Codigo: \t \t " + " Nombre: \t \t " + " CI: " + "\n");
-                    do {
-                        Integer codigo = cursor.getInt(0);
-                        String nombre = cursor.getString(1);
-                        String direccion = cursor.getString(2);
-                        textView.append(codigo + "\t \t \t" + nombre + " \t \t \t \t" + direccion + "\n");
-                    } while (cursor.moveToNext());
-                }
-                break;
-
-
+            do {
+                lista1.add("codigo:  " + cursor.getString(0));
+                lista1.add("Alumno:   " + cursor.getString(1));
+                lista1.add("Cedula:   " + cursor.getString(2));
+                lista1.add("\n");
+            } while (cursor.moveToNext());
         }
+
+        ArrayAdapter adaptadorlista = new ArrayAdapter(this, android.R.layout.simple_list_item_1, lista1);
+        lista.setAdapter(adaptadorlista);
+
+
+
+
     }
 }
